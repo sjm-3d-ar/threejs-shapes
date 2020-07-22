@@ -5,8 +5,8 @@ import * as THREE from "three";
 
 const useStyles = makeStyles({
   root: {
-    width: "100vw",
-    height: "100vh",
+    // width: "50%",
+    // height: "50%",
   },
 });
 
@@ -37,7 +37,18 @@ const Shapes = () => {
     const cube = new THREE.Mesh(geometry, material);
 
     scene.add(cube);
-    renderer.render(scene, camera);
+
+    const render = time => {
+      time *= 0.001;
+
+      cube.rotation.x = time;
+      cube.rotation.y = time;
+
+      renderer.render(scene, camera);
+
+      requestAnimationFrame(render);
+    };
+    requestAnimationFrame(render);
   }, []);
 
   return <canvas className={classes.root} ref={canvas} />;
