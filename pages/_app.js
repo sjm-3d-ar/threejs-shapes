@@ -18,7 +18,7 @@ const MyApp = ({ Component, pageProps }) => {
   return (
     <>
       <Head>
-        <title>WebGL Triangle</title>
+        <title>Three.js Shapes</title>
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
