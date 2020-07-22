@@ -3,6 +3,8 @@ import React, { useRef, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import * as THREE from "three";
 
+import { tj } from "_utils";
+
 const useStyles = makeStyles({
   root: {
     // width: "50%",
@@ -32,11 +34,11 @@ const Shapes = () => {
     const boxDepth = 1;
     const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
 
-    const material = new THREE.MeshPhongMaterial({ color: 0x44aa88 });
-
-    const cube = new THREE.Mesh(geometry, material);
-
-    scene.add(cube);
+    const cubes = [
+      tj.meshPhongInstance(geometry, 0x44aa88, 0, scene),
+      tj.meshPhongInstance(geometry, 0x8844aa, -2, scene),
+      tj.meshPhongInstance(geometry, 0xaa8844, 2, scene),
+    ];
 
     {
       const color = 0xffffff;
@@ -49,8 +51,10 @@ const Shapes = () => {
     const render = time => {
       time *= 0.001;
 
-      cube.rotation.x = time;
-      cube.rotation.y = time;
+      cubes.forEach(cube => {
+        cube.rotation.x = time;
+        cube.rotation.y = time;
+      });
 
       renderer.render(scene, camera);
 
