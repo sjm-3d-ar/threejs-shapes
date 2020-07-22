@@ -1,8 +1,2 @@
-export {
-  createAndBindBuffer,
-  getGLContext,
-  getProgram,
-  getShader,
-  linkGPUAndCPU,
-} from "./webgl";
+export { default as tj } from "./tj";
 export { useWindowDimensions } from "./window";
