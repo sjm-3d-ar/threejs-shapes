@@ -11,6 +11,23 @@ const meshPhongInstance = (geometry, color, x, scene) => {
   return mesh;
 };
 
+// this resizing logic may not be necessary. it seemed to behave as needed without it.
+// this is possibly due to a later version of three.js? as the tutorial described
+// different behavior.
+const resizeRendererToDisplaySize = renderer => {
+  const canvas = renderer.domElement;
+  const width = canvas.clientWidth;
+  const height = canvas.clientHeight;
+
+  const needResize = canvas.width !== width || canvas.height !== height;
+  if (needResize) {
+    renderer.setSize(width, height, false);
+  }
+
+  return needResize;
+};
+
 export default {
   meshPhongInstance,
+  resizeRendererToDisplaySize,
 };

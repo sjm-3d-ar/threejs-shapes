@@ -7,8 +7,15 @@ import { tj } from "_utils";
 
 const useStyles = makeStyles({
   root: {
-    width: "100%",
-    height: "100%",
+    // NOTE: % may be necessary if displaying this on an iPhone
+    //  vw, vh fills the window on desktop, but may distort the window on iPhone
+    //  100% w, h did not always fill the window (it seemed to fill the window only
+    //  when the aspect ratio was met or exceeded, else left white space)
+    // This could be due to a later version of three.js, as it behaves differently
+    // as described in the tutorial.
+    width: "100vw",
+    height: "100vh",
+
     display: "block",
   },
 });
@@ -51,6 +58,15 @@ const Shapes = () => {
 
     const render = time => {
       time *= 0.001;
+
+      // this resizing logic may not be necessary. it seemed to behave as needed without it.
+      // this is possibly due to a later version of three.js? as the tutorial described
+      // different behavior.
+      if (tj.resizeRendererToDisplaySize(renderer)) {
+        // adjust camera aspect, to account for screen being resized
+        camera.aspect = canvas.current.clientWidth / canvas.current.clientHeight;
+        camera.updateProjectionMatrix();
+      }
 
       cubes.forEach(cube => {
         cube.rotation.x = time;
